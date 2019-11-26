@@ -19,8 +19,8 @@ const Author = props => {
         <Avatar
           src={urlFor(props.image)
             .auto('format')
-            .width(95)
-            .height(95)
+            .width(150)
+            .height(150)
             .url()}
           link={false}
         />
