@@ -4,7 +4,7 @@ import { Link } from 'src/components/Navigation/NextLink';
 
 const BlogCard = props => (
   <Box my={2}>
-    <Link href='/post/cat'>
+    <Link href='/post/[slug]' mask={`/post/${props.slug}`}>
       <Heading
         as='h2'
         color='secondary'
