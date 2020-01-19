@@ -20,6 +20,7 @@ const Home = props => {
       <Flex m={4} mb={5} flexWrap='wrap'>
         {props.authors.map(author => (
           <Avatar
+            key={author._id}
             link
             src={urlFor(author.image)
               .auto('format')
@@ -65,7 +66,7 @@ Home.getInitialProps = async () => {
   const q = `
   {
     "authors": *[_type == 'author'],
-    "posts": *[_type == 'post']{
+    "posts": *[_type == 'post']|order(publishedAt desc){
       ...,
       "author": author->{
         slug,
