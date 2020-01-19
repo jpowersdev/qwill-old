@@ -1,4 +1,15 @@
 {
   "presets": ["next/babel"],
-  "plugins": [["emotion"]]
+  "plugins": [
+    ["emotion"],
+    [
+      "prismjs",
+      {
+        "languages": ["javascript", "css", "jsx", "bash"],
+        "plugins": ["line-numbers"],
+        "theme": "okadia",
+        "css": false
+      }
+    ]
+  ]
 }

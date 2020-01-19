@@ -9,44 +9,56 @@ import styled from '@emotion/styled';
  */
 import { a11yLight } from 'src/style/markdown/a11y-light';
 import { monokai } from 'src/style/markdown/monokai';
+import { useEffect, useState } from 'react';
 
 const StyledMarkdown = styled.div`
-  ${a11yLight}
-  /* ${monokai} */
-  .hljs {
-    background: #f5f5f5;
-  }
+  ${okadia}
 `;
+
+import Prism from 'prismjs';
+import { okadia } from 'src/style/markdown/okadia';
 
 const CodeBlock = props => {
   // Map shorthand to package name
   const languages = {
-    js: 'javascript',
-    css: 'css'
+    css: 'css',
+    bash: 'bash'
   };
 
-  // Dynamic required based on language requested
-  const pkg = languages[props.language] || props.language;
-  const lang = require(`highlight.js/lib/languages/${pkg}`);
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
 
-  // Fallback if package doesn't exist
-  if (!lang) {
-    return (
-      <StyledMarkdown>
-        <Lowlight value={props.value} />
-      </StyledMarkdown>
-    );
-  }
-
-  // If not fallback, register the required language
-  Lowlight.registerLanguage(props.language, lang);
-
-  // Render that bad boy
   return (
     <StyledMarkdown>
-      <Lowlight language={props.language} value={props.value} />
+      <pre className={`language-${props.language}`}>
+        <code className={`language-${props.language}`}>{props.value}</code>
+      </pre>
     </StyledMarkdown>
   );
+
+  // // Dynamic required based on language requested
+  // const pkg = languages[props.language] || props.language;
+  // // const lang = require(`highlight.js/lib/languages/${pkg}`);
+
+  // // Fallback if package doesn't exist
+  // if (!lang) {
+  //   return (
+  //     <StyledMarkdown>
+  //       <Lowlight value={props.value} />
+  //     </StyledMarkdown>
+  //   );
+  // }
+
+  // // If not fallback, register the required language
+  // Lowlight.registerLanguage(props.language, lang);
+
+  // // Render that bad boy
+  // return (
+  //   <StyledMarkdown>
+  //     <Lowlight language={props.language} value={props.value} />
+  //   </StyledMarkdown>
+  // );
 };
 
 export default CodeBlock;
