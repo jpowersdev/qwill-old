@@ -14,7 +14,7 @@ import { markdown } from '../../style/markdown/markdown';
 const Post = props => {
   return (
     <Wrapper>
-      <Head title={props.title} />
+      <Head title={props.title} {...props.seo} />
       <Nav title={props.title} />
 
       <Box my={2} mx={4}>
@@ -55,7 +55,7 @@ Post.getInitialProps = async ctx => {
   const data = await client.fetch(`
     *[_type == 'post' && slug.current == '${slug}'][0]{
       ...,
-      "author": author->{
+      author->{
         name,
         slug
       }
