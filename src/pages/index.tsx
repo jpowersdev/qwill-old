@@ -11,14 +11,41 @@ import { Flex } from 'rebass';
 import Avatar from 'src/components/Images/Avatar';
 import { urlFor } from 'src/util/images';
 
+function sortAuthors(authors, posts) {
+  let authorList = [];
+  for (let i = 0; i < posts.length; i++) {
+    if (!authorList.includes(posts[i].author._id)) {
+      authorList.push(posts[i].author._id);
+    }
+  }
+  if (authorList.length < authors.length) {
+    for (let i = 0; i < authors.length; i++) {
+      if (!authorList.includes(authors[i]._id)) {
+        authorList.push(authors[i]._id);
+      }
+    }
+  }
+  return authorList.map(id => {
+    let current;
+    authors.forEach(author => {
+      if (author._id === id) {
+        current = author;
+      }
+    });
+    return current;
+  });
+}
+
 const Home = props => {
+  const sorted = sortAuthors(props.authors, props.posts);
+  console.log(sorted);
   return (
     <Wrapper>
       <Head metaTitle='Qwill Blog' />
       <Nav />
 
       <Flex m={4} mb={5} flexWrap='wrap'>
-        {props.authors.map(author => (
+        {sorted.map(author => (
           <Avatar
             key={author._id}
             link
@@ -31,14 +58,6 @@ const Home = props => {
             slug={author.slug.current}
           />
         ))}
-        {/* <Avatar link src='/static/slyons.jpg' name='Sean' slug='slyons' />
-        <Avatar
-          link
-          src='/static/fmarasco.jpeg'
-          name='Franchesca'
-          slug='fmarasco'
-        />
-        <Avatar link src='/static/jpowers.jpeg' name='Jon' slug='jpowers' /> */}
       </Flex>
 
       <BlogList>
@@ -69,6 +88,7 @@ Home.getInitialProps = async () => {
     "posts": *[_type == 'post']|order(publishedAt desc){
       ...,
       "author": author->{
+        _id,
         slug,
         name
       }
