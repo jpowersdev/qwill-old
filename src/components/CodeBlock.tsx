@@ -7,26 +7,37 @@ import styled from '@emotion/styled';
  * Can add new stylesheets by copying from
  * https://github.com/highlightjs/highlight.js/tree/master/src/styles
  */
-import { a11yLight } from 'src/style/markdown/a11y-light';
-import { monokai } from 'src/style/markdown/monokai';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const StyledMarkdown = styled.div`
   ${okadia}
+
+  .code-toolbar {
+    position: relative;
+
+    .toolbar {
+      position: absolute;
+      top: 5px;
+      right: 7px;
+
+      button {
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
 `;
 
 import Prism from 'prismjs';
 import { okadia } from 'src/style/markdown/okadia';
 
 const CodeBlock = props => {
-  // Map shorthand to package name
-  const languages = {
-    css: 'css',
-    bash: 'bash'
-  };
-
   useEffect(() => {
     Prism.highlightAll();
+
+    document.getElementsByClassName('.');
   }, []);
 
   return (
@@ -36,29 +47,6 @@ const CodeBlock = props => {
       </pre>
     </StyledMarkdown>
   );
-
-  // // Dynamic required based on language requested
-  // const pkg = languages[props.language] || props.language;
-  // // const lang = require(`highlight.js/lib/languages/${pkg}`);
-
-  // // Fallback if package doesn't exist
-  // if (!lang) {
-  //   return (
-  //     <StyledMarkdown>
-  //       <Lowlight value={props.value} />
-  //     </StyledMarkdown>
-  //   );
-  // }
-
-  // // If not fallback, register the required language
-  // Lowlight.registerLanguage(props.language, lang);
-
-  // // Render that bad boy
-  // return (
-  //   <StyledMarkdown>
-  //     <Lowlight language={props.language} value={props.value} />
-  //   </StyledMarkdown>
-  // );
 };
 
 export default CodeBlock;
