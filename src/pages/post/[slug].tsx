@@ -10,44 +10,54 @@ const ReactMarkdown = require('react-markdown');
 import styled from '@emotion/styled';
 import CodeBlock from '../../components/CodeBlock';
 import { markdown } from '../../style/markdown/markdown';
+import Page from 'src/style/page';
 
 const Post = props => {
   return (
-    <Wrapper>
-      <Head title={props.title} {...props.seo} />
-      <Nav title={props.title} />
+    <Page>
+      <Wrapper>
+        <Head title={props.title} {...props.seo} />
+        <Nav title={props.title} />
 
-      <Box my={2} mx={4}>
-        <Text fontSize={2}>
-          by{' '}
-          <Link
-            href='/author/[slug]'
-            mask={`/author/${props.author.slug.current}`}
-            sx={{
-              ':hover': {
-                textDecoration: 'underline'
-              }
-            }}
-          >
-            {props.author.name}
-          </Link>
-        </Text>
-      </Box>
+        <Box my={2} mx={4}>
+          <Text fontSize={2}>
+            by{' '}
+            <Link
+              href='/author/[slug]'
+              mask={`/author/${props.author.slug.current}`}
+              sx={{
+                ':hover': {
+                  textDecoration: 'underline'
+                }
+              }}
+            >
+              {props.author.name}
+            </Link>
+          </Text>
+        </Box>
 
-      <Box m={4}>
-        <StyledMarkdown>
-          <ReactMarkdown
-            source={props.markdown}
-            renderers={{ code: CodeBlock }}
-          />
-        </StyledMarkdown>
-      </Box>
-    </Wrapper>
+        <Box m={4}>
+          <StyledMarkdown>
+            <ReactMarkdown
+              source={props.markdown}
+              renderers={{ code: CodeBlock }}
+            />
+          </StyledMarkdown>
+        </Box>
+      </Wrapper>
+    </Page>
   );
 };
 
-const StyledMarkdown = styled.div`
+type MarkdownProps = {
+  theme?: any;
+};
+const StyledMarkdown = styled.div<MarkdownProps>`
   ${markdown}
+  color: ${props => (props.theme as { colors: any }).colors.text};
+  a {
+    color: ${props => (props.theme as { colors: any }).colors.primary};
+  }
 `;
 
 Post.getInitialProps = async ctx => {

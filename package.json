@@ -23,12 +23,14 @@
     "prismjs": "^1.19.0",
     "react": "16.11.0",
     "react-dom": "16.11.0",
+    "react-icons": "^3.8.0",
     "react-lowlight": "^2.0.0",
     "react-markdown": "^4.3.1",
     "react-spring": "^8.0.27",
     "rebass": "^4.0.7",
     "styled-media-helper": "^1.1.0",
-    "styled-system": "^5.1.2"
+    "styled-system": "^5.1.2",
+    "unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@types/next": "^8.0.7",

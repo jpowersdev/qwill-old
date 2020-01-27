@@ -7,9 +7,10 @@ import BlogCard from 'src/components/Blog/BlogCard';
 import Head from 'src/components/Utility/Head';
 
 import { client } from 'src/util/client';
-import { Flex } from 'rebass';
+import { Flex, Box } from 'rebass';
 import Avatar from 'src/components/Images/Avatar';
 import { urlFor } from 'src/util/images';
+import Page from 'src/style/page';
 
 function sortAuthors(authors, posts) {
   let authorList = [];
@@ -40,44 +41,58 @@ const Home = props => {
   const sorted = sortAuthors(props.authors, props.posts);
   console.log(sorted);
   return (
-    <Wrapper>
-      <Head metaTitle='Qwill Blog' />
-      <Nav />
+    <Page>
+      <Wrapper>
+        <Head metaTitle='Qwill Blog' />
+        <Nav />
 
-      <Flex m={4} mb={5} flexWrap='wrap'>
-        {sorted.map(author => (
-          <Avatar
-            key={author._id}
-            link
-            src={urlFor(author.image)
-              .auto('format')
-              .width(150)
-              .height(150)
-              .url()}
-            name={author.name.split(' ')[0]}
-            slug={author.slug.current}
-          />
-        ))}
-      </Flex>
+        <Box
+          m={4}
+          mb={4}
+          sx={{
+            display: 'grid',
+            width: 'fit-content',
+            gridTemplateColumns: ['repeat(2,auto)', 'repeat(4,auto)'],
+            gridTemplateRows: ['repeat(2, 1fr)', '1fr']
+          }}
+        >
+          {sorted.map(author => (
+            <Avatar
+              key={author._id}
+              link
+              src={urlFor(author.image)
+                .auto('format')
+                .width(150)
+                .height(150)
+                .url()}
+              name={author.name.split(' ')[0]}
+              slug={author.slug.current}
+            />
+          ))}
+        </Box>
 
-      <BlogList>
-        {props.posts.map(post => (
-          <BlogCard
-            key={post._id}
-            author={{ name: post.author.name, slug: post.author.slug.current }}
-            title={post.title}
-            excerpt={post.tagline}
-            date={new Date(post.publishedAt).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-            slug={post.slug.current}
-            minutes={post.lengthInMinutes}
-          />
-        ))}
-      </BlogList>
-    </Wrapper>
+        <BlogList>
+          {props.posts.map(post => (
+            <BlogCard
+              key={post._id}
+              author={{
+                name: post.author.name,
+                slug: post.author.slug.current
+              }}
+              title={post.title}
+              excerpt={post.tagline}
+              date={new Date(post.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+              slug={post.slug.current}
+              minutes={post.lengthInMinutes}
+            />
+          ))}
+        </BlogList>
+      </Wrapper>
+    </Page>
   );
 };
 

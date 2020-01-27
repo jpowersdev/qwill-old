@@ -20,7 +20,7 @@ const BlogCard = props => (
       </Heading>
     </Link>
     <Box my={2}>
-      <Text fontSize={1}>
+      <Text color='text' fontSize={1}>
         by{' '}
         <Link
           href='/author/[slug]'
@@ -36,7 +36,7 @@ const BlogCard = props => (
       </Text>
     </Box>
     <Box my={2}>
-      <Text fontFamily='body' fontSize={1}>
+      <Text color='text' fontFamily='body' fontSize={1}>
         {props.date} &#9679; {props.minutes} min read
       </Text>
     </Box>

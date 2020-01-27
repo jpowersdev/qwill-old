@@ -1,25 +1,12 @@
 // default theme preset
 
-const theme = {
-  colors: {
-    text: '#4F6D7A',
-    primary: '#7B96BD',
-    secondary: '#7FA8BE',
-    bg: '#DBE9EE'
-  },
-  fonts: {
-    header: "'Helvetica', sans-serif",
-    body: 'sans-serif'
-  }
-};
-
-const preset = {
+const darkPreset = {
   breakpoints: ['576px', '768px', '992px', '1200px'],
   colors: {
-    text: '#462749',
-    background: '#FDFAFA',
-    primary: '#8332AC',
-    secondary: '#E291D7',
+    text: '#FDFAFA',
+    background: '#333',
+    primary: '#E291D7',
+    secondary: '#9933ff',
     muted: '#E5EEEC',
     gray: '#dddddf',
     highlight: 'hsla(205, 100%, 40%, 0.125)'
@@ -136,4 +123,4 @@ const preset = {
   }
 };
 
-export default preset;
+export default darkPreset;
